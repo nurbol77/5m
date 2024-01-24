@@ -14,13 +14,15 @@ class Movie(models.Model):
     duration = models.IntegerField()
     director = models.ForeignKey(Director, on_delete=models.CASCADE, related_name="movies")
 
+
+
     def __str__(self):
         return self.name
 
 
 class Review(models.Model):
     text = models.TextField()
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="review")
-
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="reviews")
+    stars = models.IntegerField(default=1, choices=[(i, i * '*') for i in range(6)])
     def __str__(self):
         return self.text
