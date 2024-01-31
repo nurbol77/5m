@@ -6,7 +6,7 @@ from movie_app.models import Director, Movie, Review
 from movie_app.serializers import DirectorSerializers, MovieSerializers, ReviewSerializers
 
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT''DELETE'])
 def director_list(request):
     if request.method == 'GET':
         queryset = Director.objects.all()
@@ -17,9 +17,15 @@ def director_list(request):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=200)
+    elif request.method =='PUT':
+        serializer = DirectorSerializers( data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=200)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+
+@api_view(['GET', 'PUT',])
 def director_detail(request, id):
     queryset = get_object_or_404(Movie, id=id)
     if Movie.method == 'GET':
